@@ -30,7 +30,7 @@ h2 {
 	list-style-type: none;
 	width: 50%;
     margin: 0 auto;
-    padding: 0px 0px 0px 450px;
+    padding: 0px 0px 0px 550px;
     overflow: hidden;
     background-color: #333;
 
@@ -83,8 +83,20 @@ h2 {
 	height:100px;
 }
 
+#home-page p {
+	padding-left: 20px;
+}
+
 #resume-page {
 	height:100%;
+}
+
+#resume-page li {
+	padding-bottom: 2px;
+}
+
+#resume-header {
+    overflow: auto;
 }
 
 #resume-header-left {
@@ -113,11 +125,28 @@ h2 {
 	font-weight: bold;
 }
 
+#projects li {
+	padding-bottom: 5px;
+}
+
+#resources h2 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-decoration: underline;
+}
+
+#resources li {
+	padding-bottom: 5px;
+}
+
+#resources ul {
+	padding-left: 100px;
+}
 
 .body {
-	width:50%;
-	margin:50px auto;
-	padding: 20px 0px 0px 0px;
+	width: 50%;
+	margin: 50px auto;
+	padding: 20px 0px 20px 0px;
 	box-shadow: 10px 10px 5px #888888;
 	background-color: rgba(255, 255, 255, 0.9);
 	overflow: hidden;
