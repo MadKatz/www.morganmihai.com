@@ -1,38 +1,69 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta name="keywords" content="www.morganmihai.com" />
-		<meta name="description" content="www.morganmihai.com homepage" />
-		<title>My Coding Projects</title>
-		<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-	</head>
-	<body>
-		<div id="header">
-			<ul>
-				<li><a href="resources.html">Coding Resources</a></li>
-				<li><a href="#">Coding Projects</a></li>
-				<li><a href="resume.html">Resume</a></li>
-			</ul>
-		</div>
-		<div id="wrapper-main">
-			<div class="body">
-				<h1>Current Open Projects</h1>
-				<ul>
-					<li><a href="http://github.com/MadKatz/CaveStory">CaveStory</a> - Creating a game engine for CaveStory.</li>
-				</ul>
-				<br></br>
-				<h1>Completed Projects</h1>
-				<div id="projects">
-					<ul>
-						<li><a href="http://github.com/MadKatz/TetrisBetaWP">Tetris Beta</a> - Tetris clone for Windows Phone.</li>
-						<li><a href="http://github.com/MadKatz/NorthPole">Bing Search Engine Bot</a> - Bing Rewards bot that does bing searches
-						to earn bing reward points. Can do daily offers & searches for PC and Mobile.</li>
-						<li><a href="http://github.com/MadKatz/WinChatLib">Windows Server/Client Chat Library</a> - Library for IRC style chat.
-						Includes client and server demos.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="projects">
+    <meta name="author" content="Morgan">
 
+    <title>My Projects</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+  
+	<div id="header">
+	</div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Projects!</h1>
+        <p>Some of my projects are described below. To view all my projects, <a href="http://github.com/MadKatz">vist my GitHub page</a>.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2>WinChatLib</h2>
+		  <p>IRC style chat library written in C#.</p>
+		  <p>Library to create IRC style chat clients and servers. Clients can connect to a server and send & receive messages in a single gobal channel.</p>
+          <p><a class="btn btn-default" href="https://github.com/MadKatz/WinChatLib" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>NorthPole</h2>
+		  <p>Bing rewards bot written in C# using Selenium.</p>
+		  <p>Now defunk due to constant changes to the bing UI. This bot would login and earn bing point by doing bing searches and clicking on the daily offers. Can automate multiple accounts, earn rewards for both PC and Mobile searches and uses threading to reduce execution time.</p>
+          <p><a class="btn btn-default" href="https://github.com/MadKatz/NorthPole" role="button">View details &raquo;</a></p>
+       </div>
+      </div>
+
+      <hr>
+    </div> <!-- /container -->
+
+	<div id="footer">
+	</div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+	
+	<script>$('#header').load('header.html')</script>
+	<script>$('#footer').load('footer.html')</script>
+  </body>
 </html>

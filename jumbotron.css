@@ -1,0 +1,103 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.footer-container {
+  width: auto;
+  text-align: center;
+}
+.footer-container .text-muted {
+  margin: 20px 40px 0px 0px;
+}
+
+
+/* Resume */
+#resume-header {
+    overflow: auto;
+}
+
+#resume-header-left {
+	float: left;
+	text-align: left;
+	width: 180px;
+	margin-left: 200px;
+}
+
+#resume-header-right {
+	float: right;
+	text-align: right;
+	width: 550px;
+	margin-right: 150px;
+}
+
+#resume-header-line {
+	border-bottom-style: solid;
+	border-width: 2px;
+	clear: left;
+}
+
+
+#resume-footer {
+	text-align:center;
+	font-weight: bold;
+}
+
+#projects li {
+	padding-bottom: 5px;
+}
+
+#resources h2 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-decoration: underline;
+}
+
+#resources li {
+	padding-bottom: 5px;
+}
+
+#resources ul {
+	padding-left: 100px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.resume-footer {
+
+   display: inline-block;
+}
+
+.company-name {
+	padding: 0px 0px 0px 45px;
+	margin-bottom: 0px;
+	display: inline;
+}
+
+.company-year1 {
+	padding: 0px 0px 0px 300px;
+	display: inline;
+}
+
+.company-year2 {
+	padding: 0px 0px 0px 258px;
+	display: inline;
+}
+
+.position-title {
+	padding: 0px 0px 0px 45px;
+	margin-top: 0px;
+}

@@ -1,24 +1,69 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta name="keywords" content="www.morganmihai.com" />
-		<meta name="description" content="www.morganmihai.com homepage" />
-		<title>www.morganmihai.com</title>
-		<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-	</head>
-	<body>
-		<div id="header">
-			<ul>
-				<li><a href="resources.html">Coding Resources</a></li>
-				<li><a href="projects.html">Coding Projects</a></li>
-				<li><a href="resume.html">Resume</a></li>
-			</ul>
-		</div>
-		<div id="wrapper-main">
-			<div id="home-page" class="body">
-				<p>Welcome to my personal website, used mainly for trying out html/css.</p>
-			</div>
-		</div>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="www.morganmihai.com">
+    <meta name="author" content="Morgan">
+    <link rel="icon" href="favicon.ico">
 
+    <title>Morgan Mihai</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+	<div id="header">
+	</div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, world!</h1>
+        <p>Welcome to the home page of Morgan Mihai's personal website! You've traveled far and must be weary.
+		Please take your time and browse my wears.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Site moved to bootstrap!</h2>
+          <h6>May. 2016</h6>
+		  <p>Website moves to boostrap. Exciting stuff people.</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Website Launched!</h2>
+          <h6>Dec. 2015 </h6>
+		  <p>www.morganmihai.com is alive! </p>
+       </div>
+      </div>
+
+      <hr>
+    </div> <!-- /container -->
+
+	<div id="footer">
+	</div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+	
+	<script>$('#header').load('header.html')</script>
+	<script>$('#footer').load('footer.html')</script>
+  </body>
 </html>
