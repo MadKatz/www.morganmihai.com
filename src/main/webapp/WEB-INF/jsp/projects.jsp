@@ -1,3 +1,11 @@
+<%-- 
+    Document   : projects
+    Created on : May 21, 2016, 11:23:37 PM
+    Author     : Morgan
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,24 +15,23 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="projects">
     <meta name="author" content="Morgan">
+    <link rel="icon" href="">
 
     <title>My Projects</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <style type="text/css">
+    <%@include file="/resources/css/jumbotron.css" %>
+    <%@include file="/resources/css/bootstrap.min.css" %>
+    <%@include file="/resources/css/ie10-viewport-bug-workaround.css" %>
+    </style>
   </head>
 
   <body>
   
-	<div id="header">
-	</div>
-
+     <%@ include file="header.jsp" %>
+     
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
@@ -51,19 +58,15 @@
 
       <hr>
     </div> <!-- /container -->
-
-	<div id="footer">
-	</div>
+    <%@ include file="footer.jsp" %>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/resources/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/resources/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
-	
-	<script>$('#header').load('header.html')</script>
-	<script>$('#footer').load('footer.html')</script>
+    <script src="/resources/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
+
