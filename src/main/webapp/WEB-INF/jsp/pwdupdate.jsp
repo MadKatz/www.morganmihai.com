@@ -66,10 +66,9 @@
               <div class="form-group">
                 <label for="inputConfirmNewPassword" class="col-sm-4 control-label">Confirm Password</label>
                 <div class="col-sm-4">
-                  <input type="password" id="inputConfirmNewPassword" data-match="#inputNewPassword" placeholder="Confirm Password"
+                  <input type="password" id="inputConfirmNewPassword" data-minlength="6" data-match="#inputNewPassword" placeholder="Confirm Password"
                          data-match-error="Whoops, these don't match" class="form-control" required>
-                </div>
-                <div class="help-block with-errors">
+                  <div class="help-block with-errors"></div>
                 </div>
               </div>
               <div class="form-group">
@@ -89,10 +88,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="resources/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/resources/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/resources/js/bootstrap.min.js"></script>
     <script src="/resources/js/validator.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/resources/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

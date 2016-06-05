@@ -43,7 +43,7 @@
                 <p>Email already registered.</p>
             </div>
         </c:if>
-        <c:if test="${param.userf != null}">
+        <c:if test="${param.usernamef != null}">
             <div class="alert alert-danger">
                 <p>Username already registered.</p>
             </div>

@@ -4,9 +4,10 @@
     Author     : Morgan
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -32,7 +33,6 @@
 
     <%@ include file="header.jsp" %>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
           <h1>Hello, ${user}</h1>
@@ -46,6 +46,13 @@
             <p>View/Edit account profile.</p>
           <p><a class="btn btn-default" href="/userprofile" role="button">View profile &raquo;</a></p>
         </div>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+          <div class="col-md-4">
+            <h2>Admin Console</h2>
+              <p>View/Edit user accounts.</p>
+            <p><a class="btn btn-default" href="/admin" role="button">View details &raquo;</a></p>
+          </div>
+        </sec:authorize>
       </div>
     </div>
     <%@ include file="footer.jsp" %>
@@ -53,9 +60,9 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="resources/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/resources/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/resources/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/resources/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

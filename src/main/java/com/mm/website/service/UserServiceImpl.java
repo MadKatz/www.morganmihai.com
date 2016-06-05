@@ -8,10 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mm.website.dao.UserDAO;
 import com.mm.website.model.User;
 
-/**
- *
- * @author Morgan
- */
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mm.website.model;
 
 import java.io.Serializable;
@@ -13,13 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Morgan
- */
 @Entity
 @Table(name="users")
-public class User implements Serializable  {
+public class User implements Serializable, Comparable<User>  {
     
     @Id
     @Column(name="userid")
@@ -30,6 +21,7 @@ public class User implements Serializable  {
     private String lastName;
     private String email;
     private String password;
+    private boolean enabled;
 
     public int getUserId() {
         return userId;
@@ -55,6 +47,10 @@ public class User implements Serializable  {
         return password;
     }
     
+    public boolean getEnabled() {
+        return enabled;
+    }
+    
     public void setId(int userId) {
         this.userId = userId;
     }
@@ -78,10 +74,20 @@ public class User implements Serializable  {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @Override
     public String toString(){
-        return String.format("id=%d, username=%s, firstname=%s, lastname=%s, email=%s, password=%s",
-                userId, username, firstName, lastName, email, password);
+        return String.format("id=%d, username=%s, firstname=%s, lastname=%s, email=%s, enabled=%b",
+                userId, username, firstName, lastName, email, enabled);
+    }
+    
+    @Override
+    public int compareTo(User user) {
+        int id = user.getUserId();
+        return userId - id;
     }
 }

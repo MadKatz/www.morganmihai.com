@@ -38,14 +38,14 @@
       <form class="form-signin" action="${loginUrl}" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <c:if test="${param.error != null}">
-            <div class="alert alert-danger">
-                <p>Invalid username and password.</p>
-            </div>
+          <div class="alert alert-danger">
+            <p>Invalid username and password.</p>
+          </div>
         </c:if>
         <c:if test="${param.logout != null}">
-            <div class="alert alert-success">
-                <p>You have been logged out successfully.</p>
-            </div>
+          <div class="alert alert-success">
+            <p>You have been logged out successfully.</p>
+          </div>
         </c:if>
         <label for="username" class="sr-only">username</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>
@@ -65,10 +65,10 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="resources/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/resources/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/resources/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/resources/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
 

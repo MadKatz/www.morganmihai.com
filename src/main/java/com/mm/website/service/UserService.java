@@ -4,10 +4,6 @@ import java.util.List;
 
 import com.mm.website.model.User;
 
-/**
- *
- * @author Morgan
- */
 public interface UserService {
 
     public void addUser(User user);

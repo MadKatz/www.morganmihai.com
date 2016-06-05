@@ -76,6 +76,12 @@ body#login {
   margin-top: 40px;
 }
 
+/* Admin */
+
+td#enabled {
+  text-transform: uppercase;
+}
+
 /* Resume */
 #resume-header {
     overflow: auto;

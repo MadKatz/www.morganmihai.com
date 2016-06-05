@@ -1,7 +1,3 @@
-/**
- *
- * @author Morgan
- */
 package com.mm.website.controllers;
 
 import com.mm.website.model.PasswordUpdate;
@@ -9,7 +5,14 @@ import com.mm.website.model.User;
 import com.mm.website.model.UserRole;
 import com.mm.website.service.UserRoleService;
 import com.mm.website.service.UserService;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -20,6 +23,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -29,12 +34,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.validation.BindingResult;
 
 @Controller
 public class MMController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MMController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MMController.class);
+    private static final String ADMIN_ROLE = "ROLE_ADMIN";
+    
     private UserService userService;
     private UserRoleService userRoleService;
     private BCryptPasswordEncoder passwordencoder;
@@ -71,7 +79,79 @@ public class MMController {
     public String resumePage(ModelMap model) {
         return "resume";
     }
-
+    
+    @RequestMapping(value = "/admin")
+    public String adminPage(ModelMap model) {
+        final List<User> users = userService.listUsers();
+        final List<UserRole> userRoles = userRoleService.listUserRoles();
+        final Map<User, String> usersWithRoleMap = 
+                generateUsersWithRoleMap(users, userRoles);
+        final SortedMap<User, String> sortedUsersWithRoleMap =
+                new TreeMap<User, String>();
+        
+        sortedUsersWithRoleMap.putAll(usersWithRoleMap);
+        model.addAttribute("usersMap", sortedUsersWithRoleMap);
+        model.addAttribute("user", new User());
+        return "admin";
+    }
+    
+    private Map<User, String> generateUsersWithRoleMap(final List<User> users,
+            final List<UserRole> userRoles) {
+        final Map<User, String> usersWithRoleMap = new HashMap<User, String>();
+        final int usersSize = users.size();
+        
+        for (int i = 0; i < usersSize; i++) {
+            final User user = users.get(i);
+            String userRole = "NULL";
+            for (UserRole role : userRoles) {
+                if (role.getUserId() == user.getUserId()) {
+                    userRole = role.getRole();
+                    break;
+                }
+            }
+            usersWithRoleMap.put(user, userRole);
+        }
+        return usersWithRoleMap;
+    }
+    
+    @RequestMapping(value = "/admin/disable", method = RequestMethod.POST)
+    public String adminDisableAction(@Valid @ModelAttribute("user") User user,
+            BindingResult result, ModelMap model) {
+        final List<String> roles = getRoles();
+        updateUserStatus(roles, user, false);
+        return "redirect:/admin";
+    }
+    
+    @RequestMapping(value = "/admin/enable", method = RequestMethod.POST)
+    public String adminEnableAction(@Valid @ModelAttribute("user") User user,
+            BindingResult result, ModelMap model) {
+        final List<String> roles = getRoles();
+        updateUserStatus(roles, user, true);
+        return "redirect:/admin";
+    }
+    
+    private void updateUserStatus(final List<String> roles, final User user,
+            final boolean enabled) {
+        if (isAdmin(roles)) {
+            LOGGER.info("UpdateUserStatus action granted, user: {}.", getPrincipal());
+            final User dbUser = userService.getUserByUsername(user.getUsername());
+            dbUser.setEnabled(enabled);
+            userService.updateUser(dbUser);
+        } else {
+            LOGGER.info("UpdateUserStatusAction denied, user: {}.", getPrincipal());
+            //TODO: add denied redirect.
+        }
+    }
+    
+    private boolean isAdmin(final List<String> roles) {
+        for (String role : roles) {
+            if (role.equals(ADMIN_ROLE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @RequestMapping(value = "/userhome")
     public String userhomePage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
@@ -91,22 +171,18 @@ public class MMController {
             BindingResult result, ModelMap model) {
         final String username = getPrincipal();
         final User userFromDB = userService.getUserByUsername(username);
+        
         if (isStringValid(user.getFirstName()) && isStringValid(user.getLastName())) {
             if (user.getFirstName().equalsIgnoreCase(userFromDB.getFirstName())
                     && user.getLastName().equalsIgnoreCase(userFromDB.getLastName())) {
-                logger.debug("Didnt update user={} due to no change detected.", userFromDB.getUsername());
-                logger.debug("Firstname={}", user.getFirstName());
-                logger.debug("Lastname={}", user.getLastName());
-                logger.debug("DBFirstname={}", userFromDB.getFirstName());
-                logger.debug("DBLastname={}", userFromDB.getLastName());
+                LOGGER.debug("Didnt update user={} due to no change detected.", userFromDB.getUsername());
             } else {
                 //Update user
                 userFromDB.setFirstName(user.getFirstName());
                 userFromDB.setLastName(user.getLastName());
                 userService.updateUser(userFromDB);
-                logger.debug("Updated user={}.", userFromDB.getUsername());
             }
-        } else {
+        } else {  //Invalid String
             return "redirect:/userprofile?invalidString";
         }
         model.addAttribute("user", userFromDB);
@@ -128,9 +204,7 @@ public class MMController {
         final String username = getPrincipal();
         final User user = userService.getUserByUsername(username);
         if (!passwordencoder.matches(passwordUpdate.getOldPassword(), user.getPassword())) {
-            logger.debug("Access denied: {} failed to change password. Incorrect password.", username);
-            //logger.debug("encrypted old password: {}", encryptedOldPassword);
-            //logger.debug("encrypted password on file: {}", user.getPassword());
+            LOGGER.info("Access denied: {} failed to change password. Incorrect password.", username);
             return "redirect:/userprofile/pwdupdate?denied";
         }
         final String encryptedPassword = passwordencoder.encode(passwordUpdate.getNewPassword());
@@ -179,7 +253,7 @@ public class MMController {
         
         final User userWithId = userService.getUserByEmail(user.getEmail());
         if (userWithId == null) {
-            logger.error("userWithId is null. Did not get user by email");
+            LOGGER.error("userWithId is null. Did not get user by email");
             return "redirect:/signup?NoUserByEmailError";
         }
         
@@ -251,8 +325,18 @@ public class MMController {
         return userName;
     }
     
+    private List<String> getRoles() {
+        final Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        final List<String> roles = new ArrayList<String>();
+        final Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        while (iterator.hasNext()) {
+            roles.add(iterator.next().getAuthority());
+        }
+        return roles;
+    }
+    
     private void registerUserRole(final int userId) {
-        UserRole userRole = new UserRole();
+        final UserRole userRole = new UserRole();
         userRole.setUserId(userId);
         userRole.setRole("ROLE_USER");
         userRoleService.addUserRole(userRole);

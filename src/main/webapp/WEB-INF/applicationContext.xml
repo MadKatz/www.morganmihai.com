@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="location" value="classpath:application.properties"/>
+    </bean>
+ 
+    <bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${db.driver}" />
+      <property name="url" value="${db.url}" />
+      <property name="username" value="${db.user}" />
+      <property name="password" value="${db.pass}" />
+    </bean>
+
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+            class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.mm.website.model.User</value>
+                <value>com.mm.website.model.UserRole</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="encoder" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    
+    <bean id="userDAO" class="com.mm.website.dao.UserDAOImpl">
+            <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="userService" class="com.mm.website.service.UserServiceImpl">
+            <property name="userDAO" ref="userDAO"></property>
+    </bean>
+    
+    <bean id="userRoleDAO" class="com.mm.website.dao.UserRoleDAOImpl">
+            <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="userRoleService" class="com.mm.website.service.UserRoleServiceImpl">
+            <property name="userRoleDAO" ref="userRoleDAO"></property>
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+            <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+
+    <bean id="roleHierarchy"   class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+      <property name="hierarchy">
+        <value>
+          ROLE_ADMIN > ROLE_USER
+        </value>
+      </property>
+    </bean>
+    
+    <bean id="expressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+      <property name="roleHierarchy" ref="roleHierarchy" />
+    </bean>
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+      <constructor-arg>
+        <list>
+          <bean class="org.springframework.security.web.access.expression.WebExpressionVoter">
+            <property name="expressionHandler" ref="expressionHandler"/>
+          </bean>		
+          <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>	
+        </list>
+      </constructor-arg>
+    </bean>
+
+</beans>
